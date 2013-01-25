@@ -12,6 +12,7 @@ var setUp = function(uri) {
     host = match[1]
   } else {
     console.log('Error parsing: ' + uri)
+    return
   }
 
   http.get(uri, function(res) {
@@ -24,7 +25,7 @@ var setUp = function(uri) {
   }).on('close', function() {
     //console.log("Connection closed, restarting")
     // the following is used to break recursion
-    // and blowing the stack
+    // and avoid blowing the stack
     setTimeout(setUp, 0, uri)
   })
 }
